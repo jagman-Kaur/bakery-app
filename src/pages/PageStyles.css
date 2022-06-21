@@ -1,0 +1,24 @@
+.split {
+  height: 100%;
+  width: 50%;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  padding-top: 20px;
+}
+
+.left {
+  left: 1;
+  top: 65pt;
+}
+
+.right {
+  right: 6pt;
+  top: 51pt;
+}
+
+img {
+  max-width: 100%;
+}
