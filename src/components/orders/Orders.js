@@ -2,7 +2,7 @@ import { Fragment, useContext, useEffect, useState } from "react";
 import AuthContext from "../../store/auth-context";
 //import OrdersContext from "../../store/orders-context";
 import Modal from "../UI/Modal";
-import OrderItem from "./OrderItem";
+import OrderList from "./OrderList";
 import classes from "./Orders.module.css";
 
 function Orders(props) {
@@ -24,24 +24,29 @@ function Orders(props) {
 
       const responseData = await response.json();
       let keys = Object.keys(responseData);
-      console.log(userEmail);
-      let orderedItems = [];
+      let userOrders = [];
       for (let key of keys) {
+        let orderedItems = [];
         if (responseData[key].user.email === userEmail) {
-          for (let i in responseData[key].orderedItems)
+          for (let i = 0; i < responseData[key].orderedItems.length; i++) {
             orderedItems.push(responseData[key].orderedItems[i]);
+          }
+
+          userOrders.push({ date: responseData[key].date, orderedItems });
         }
       }
-      setItems(orderedItems);
+      setItems(userOrders);
     }
-    loadOrders().catch(error => {
-      setError(error.message)
+    loadOrders().catch((error) => {
+      setError(error.message);
     });
   }, [userEmail]);
 
   const submittingContent = <p>Loading...</p>;
   const errorContent = <div className={classes.error}>{error}</div>;
   const noOrdersContent = <p>No orders yet</p>;
+
+  console.log(items.length);
 
   return (
     <Modal hideModal={props.hideOrders}>
@@ -50,23 +55,16 @@ function Orders(props) {
       {!isSubmitting && items.length === 0 && !error && noOrdersContent}
       {!isSubmitting && items.length > 0 && !error && (
         <Fragment>
-          <ul>
-            {items.map((item) => (
-              <OrderItem
-                key={item.id}
-                id={item.id}
-                name={item.name}
-                price={item.price}
-                amount={item.amount}
-              />
-            ))}
-          </ul>
-          </Fragment>)}
-          <div className={classes.actions}>
-            <button className={classes.button} onClick={props.hideOrders}>
-              Close
-            </button>
-          </div>
+          {items.map((item) => (
+            <OrderList date={item.date} orderedItems={item.orderedItems} />
+          ))}
+        </Fragment>
+      )}
+      <div className={classes.actions}>
+        <button className={classes.button} onClick={props.hideOrders}>
+          Close
+        </button>
+      </div>
     </Modal>
   );
 }

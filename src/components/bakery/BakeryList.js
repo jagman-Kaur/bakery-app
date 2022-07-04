@@ -10,7 +10,6 @@ function BakeryList(props) {
   const [error, setError] = useState(null);
   useEffect(() => {
     async function loadData() {
-      console.log("loading");
       const response = await fetch(
         "https://bakery-app-5f5c2-default-rtdb.firebaseio.com/BakeryItems.json"
       );

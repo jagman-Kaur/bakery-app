@@ -53,6 +53,7 @@ function Cart(props) {
       {
         method: "POST",
         body: JSON.stringify({
+          date: new Date(),
           user: {...userData, email:userData.email},
           orderedItems: items,
         }),

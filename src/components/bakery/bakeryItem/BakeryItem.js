@@ -4,10 +4,12 @@ import BakeryItemForm from './BakeryItemForm'
 //import { useContext } from 'react'
 import {cartActions} from '../../../store/cart-slice'
 import {useDispatch} from 'react-redux'
+import { useContext } from 'react'
+import AuthContext from '../../../store/auth-context'
 
 function BakeryItem(props){
     const price = `$${props.price.toFixed(2)}`
-    //const cartCtx = useContext(CartContext)
+    const isLoggedIn = useContext(AuthContext).isLoggedIn
     const dispatch = useDispatch()
     function addItemToCart(enteredAmount){
         dispatch(cartActions.addItem({
@@ -22,9 +24,10 @@ function BakeryItem(props){
             <h3>{props.name}</h3>
             <div className={classes.price}>{price}</div>
         </div>
+        {isLoggedIn &&
         <div>
             <BakeryItemForm onAddToCart = {addItemToCart}/>
-        </div>
+        </div>}
     </li>
 }
 

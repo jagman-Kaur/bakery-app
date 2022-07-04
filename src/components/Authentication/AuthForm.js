@@ -50,13 +50,17 @@ const AuthForm = () => {
         } else {
           return res.json().then((data) => {
             let errorMessage = "Authentication failed";
+            if(data.error.message){
+              errorMessage = data.error.message
+            }
             throw new Error(errorMessage);
           });
         }
       })
       .then((data) => {
-        authCtx.login(data.idToken, data.email);
-        history.replace('/menu');
+        const expirationTime = new Date(new Date().getTime() + (+data.expiresIn * 1000))
+        authCtx.login(data.idToken, data.email, expirationTime.toISOString());
+        history.replace('/menu/all');
       })
       .catch((err) => {
         emailInputRef.current.value = ''
