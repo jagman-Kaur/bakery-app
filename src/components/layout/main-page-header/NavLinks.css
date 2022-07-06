@@ -1,0 +1,56 @@
+
+nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  align-items: baseline;
+}
+
+nav ul li {
+  display: inline-block;
+  margin-right: 0.5rem;
+}
+
+nav a {
+  text-decoration: none;
+  color: white;
+  font-weight: bold;
+}
+
+nav ul li button {
+  font: inherit;
+  background-color: transparent;
+  border: 1px solid white;
+  color: white;
+  font-weight: bold;
+  padding: 0.4rem 1.4rem;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+nav ul li button:hover {
+  background-color: #f7b16f;
+}
+
+@media only screen and (max-width: 700px) {
+  nav ul {
+    width: 100%;
+    position: absolute;
+    top: 75px;
+    right: 0;
+    z-index: 2;
+    background: white;
+  }
+
+  nav ul li {
+    display: block;
+    margin-top: 5px;
+    margin-bottom: 5px;
+  }
+  nav ul li button {
+    color: #8a2b06;
+  }
+  nav ul li a {
+    color: #8a2b06;
+  }
+}
